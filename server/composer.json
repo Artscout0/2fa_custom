@@ -1,0 +1,19 @@
+{
+    "name": "tomasst/totp_server",
+    "description": "The server part of an implementation of TOTP based on RFC 6238",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Tomasst\\TotpServer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tomass",
+            "email": "TOMASS.TRBS@eduge.ch"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
