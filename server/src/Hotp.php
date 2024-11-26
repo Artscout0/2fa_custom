@@ -4,7 +4,6 @@ namespace Tomasst\TotpServer;
 
 class Hotp
 {
-
     protected $algorythm;
 
     public function __construct($algo = 'sha1')
@@ -18,14 +17,14 @@ class Hotp
         $cur_counter = array(0, 0, 0, 0, 0, 0, 0, 0);
 
         for ($i = 7; $i >= 0; $i--) {
-            $cur_counter[$i] = pack('C*', $counter);
-            $counter = $counter >> 8; // bitshift the counter by 8
+            $cur_counter[$i] = pack('C', $counter & 0xff); 
+            $counter = $counter >> 8; // bitshift the counter by 8. Gonna have to use that more often.
         }
 
         $bin_counter = implode($cur_counter);
 
         if (strlen($bin_counter) < 8) {
-            $bin_counter = str_repeat(chr(0), 8 - strlen($bin_counter)) . $bin_counter; // repea the 0th charcter until all the 8ts are filled
+            $bin_counter = str_repeat(chr(0), 8 - strlen($bin_counter)) . $bin_counter; // repeat 0 byte to fill 8 bytes
         }
 
         return $bin_counter;
@@ -39,7 +38,7 @@ class Hotp
             $hmac_res[] = hexdec($hex);
         }
 
-        $offset = (int)$hmac_res[count($hmac_res) - 1] & 0xf; // bit magic screwery
+        $offset = (int)$hmac_res[count($hmac_res) - 1] & 0xf; // bit magic screwery. Thank whatever for the RFC.
 
         // I sure wonder which RFC I got this code from...
         $code = (int)($hmac_res[$offset] & 0x7f) << 24
@@ -64,7 +63,6 @@ class Hotp
 
     public static function GenerateSecret($length = 16)
     {
-
         if ($length % 8 != 0) {
             throw new \Exception("Length must be a multiple of 8");
         }
