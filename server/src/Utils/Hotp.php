@@ -1,6 +1,6 @@
 <?php
 
-namespace Tomasst\TotpServer;
+namespace Tomasst\TotpServer\Utils;
 
 class Hotp
 {

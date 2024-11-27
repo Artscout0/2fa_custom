@@ -2,7 +2,7 @@
 
 // pris sur https://github.com/bbars/utils/blob/master/php-base32-encode-decode/Base32.php
 // puis un peu modifié.
-namespace Tomasst\TotpServer;
+namespace Tomasst\TotpServer\Utils;
 use \Exception;
 
 class Base32

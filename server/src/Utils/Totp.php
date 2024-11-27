@@ -1,6 +1,6 @@
 <?php
 
-namespace Tomasst\TotpServer;
+namespace Tomasst\TotpServer\Utils;
 
 class Totp extends Hotp {
     const DEFAULT_ALGORITHM = 'sha1';
@@ -44,13 +44,10 @@ class Totp extends Hotp {
 
         for ($i = -$n; $i <= $n; $i++) { 
             
-            // Calculate the counter for the current time step
             $count = floor(($time - $this->startTime) / $this->timeInterval) + $i;
 
-            // Generate the valid token for the current time period
             $validToken = parent::GenerateToken($key, $count, $length);
 
-            // If a match is found, return true
             if ($validToken === $token) {
                 return true;
             }

@@ -5,7 +5,9 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Tomasst\\TotpServer\\": "src/"
+            "Tomasst\\TotpServer\\": "src/",
+            "Tomasst\\TotpServer\\Utils\\": "src/utils",
+            "Tomasst\\TotpServer\\Models\\": "src/models"
         }
     },
     "authors": [
