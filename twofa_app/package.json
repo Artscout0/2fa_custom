@@ -1,0 +1,31 @@
+{
+  "name": "org.apache.cordova.twofa_app",
+  "displayName": "twofa_app",
+  "version": "1.0.0",
+  "description": "Apache Cordova app that acts like an authenticator app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "Tomass Tribis",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "cordova-android": "^13.0.0",
+    "cordova-plugin-android-permissions": "^1.1.5",
+    "cordova-plugin-camera": "^8.0.0"
+  },
+  "cordova": {
+    "platforms": [
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-camera": {
+        "ANDROIDX_CORE_VERSION": "1.6.+"
+      },
+      "cordova-plugin-android-permissions": {}
+    }
+  }
+}
