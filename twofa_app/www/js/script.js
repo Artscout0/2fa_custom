@@ -10,5 +10,4 @@ btnAccessScann.addEventListener('click', event => {
 btnBack.addEventListener('click', event => {
     document.querySelector('#infos').style.display = "flex";
     document.querySelector('#generate-QRCode').style.display = "none";
-
 })
