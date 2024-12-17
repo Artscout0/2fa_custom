@@ -1,0 +1,99 @@
+html * {
+    margin: 0;
+    padding: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+body {
+    width: 100vw;
+    height: 100vh;
+}
+header {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-evenly; */
+    width: 100%;
+    height: 15%;
+    background-color: rgb(124, 74, 41);
+} 
+header h1 {
+    text-align: center;
+    width: 100%;
+}
+section {
+    height: 100%;
+}
+section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+li {
+    background-color: rgb(238, 238, 238);
+
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.356);
+    padding: 8px;
+}
+#mains_infos {
+    height: 75%;
+    color: rgb(124, 74, 41);
+    position: relative;
+}
+footer {
+    width: 100%;
+    height: 10%;
+    background-color: rgb(124, 74, 41);
+}
+
+#btn_scanner {
+    position: absolute;
+    left: 80%;
+    top: 85%;
+    background-color: rgb(124, 74, 41);
+    border-radius: 10px;
+    padding: 0.5rem;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.329);
+}
+#btn_scanner button {
+    border: none;
+    background-color: rgb(124, 74, 41);
+}
+#btn_scanner button img {
+    background-color: rgb(124, 74, 41);
+}
+
+#generate-QRCode {
+    display: none;
+}
+
+#btn_retour {
+    background-color: transparent;
+    border: none;
+    width: 25px;
+    /* margin-right: 30px; */
+    justify-self: left;
+    /* align-self: flex-start; */
+}
+#btn_retour img {
+    width: 100%;
+}
+ 
+#btnScanner {
+    background-color: rgb(124, 74, 41);
+    padding: 0.5rem;
+    border: none;
+    border-radius: 10px;
+}
+#btnScanner:hover {
+    background-color: white;
+    border: 1px solid rgb(124, 74, 41);
+    color: rgb(124, 74, 41);
+}
+
+#btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
