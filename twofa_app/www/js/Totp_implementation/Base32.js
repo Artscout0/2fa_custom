@@ -15,7 +15,7 @@ export default class Base32 {
         let remainderSize = 0;
 
         for (let i = 0; i < dataSize; i++) {
-            const b = ord(i); // Equivalent to PHP's ord()
+            const b = ord(data[i]); // Equivalent to PHP's ord()
             remainder = (remainder << 8) | b;
             remainderSize += 8;
 
@@ -52,6 +52,9 @@ export default class Base32 {
             charMap[char.toLowerCase()] = index;
         });
 
+        console.log(charMap);
+
+
         let buf = 0;
         let bufSize = 0;
         let res = "";
@@ -59,6 +62,8 @@ export default class Base32 {
         for (let i = 0; i < data.length; i++) {
             const c = data[i];
             if (!(c in charMap)) {
+                console.log(c);
+
                 // Ignore safe characters (space, newlines, etc.)
                 if (c === " " || c === "\r" || c === "\n" || c === "\t") {
                     continue;
@@ -78,6 +83,8 @@ export default class Base32 {
                 res += String.fromCharCode(byte);
             }
         }
+
+        console.log(res);
 
         return res;
     }

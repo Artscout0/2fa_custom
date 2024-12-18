@@ -17,6 +17,8 @@ export default class Totp extends Hotp {
     // Generate an otp
     generateToken(key, time = null, length = Totp.DEFAULT_DIGITS) {
         // Decode the Base32 key
+        console.log(key);
+        
         key = Base32.decode(key);
 
         // Use current time if no specific time is provided
