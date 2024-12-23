@@ -29,17 +29,15 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self' data: https://ssl.gstatic.com blob: 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-    <meta name="color-scheme" content="light dark">
-    <!-- <script type="module" src="js/script.js"></script> -->
     <link rel="stylesheet" href="css/style.css">
 
     <title>Authentification 2 facteurs</title>
 
+    <!-- load CryptoJS. -->
+    <script src="js/crypto-js.min.js"></script>
     <script src="js/app.js" type="module"></script>
 
 
@@ -50,17 +48,17 @@
         <header id="header_infos">
             <h1>Authenticator</h1>
         </header>
-            <div id="mains_infos">
-                <ul>
-                    <li>
-                        <p>Demo</p>
-                        <span>XXX XXX</span>
-                    </li>
-                </ul>
-                <div id="btn_scanner">
-                    <button><img src="./img/qr-code.png" alt="qrcode-icone"></button>
-                </div>
+        <div id="mains_infos">
+            <ul>
+                <li>
+                    <p>Demo</p>
+                    <span>XXX XXX</span>
+                </li>
+            </ul>
+            <div id="btn_scanner">
+                <button><img src="./img/qr-code.png" alt="qrcode-icone"></button>
             </div>
+        </div>
         <footer id="footer_infos">
             <p>Tomass.trbs et Maya.grbr</p>
         </footer>
@@ -76,7 +74,7 @@
             new QRCode(document.getElementById("qrcode"), "http://jindo.dev.naver.com/collie");
             </script>
         Add an empty div where you want to place the qrcode scanner -->
-        <!-- <div id="reader"></div>
+    <!-- <div id="reader"></div>
         <div id="btns">
             <button id="btnScanner">commencer à scanner</button>
         </div>
@@ -92,7 +90,7 @@
         <p id="msg"></p>
     </div> -->
     <script src="cordova.js"></script>
-    <script src="js/html5-qrcode.js"></script>
+    <!-- <script src="js/html5-qrcode.js"></script> -->
 </body>
 
 </html>
