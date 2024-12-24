@@ -1,88 +1,49 @@
+let BarcodeScanner;
+
 let app = {
     init: function () {
-        localStorage.setItem('otps', '[]'); // debug purposes
         document.querySelector("#btn_scanner").addEventListener("click", app.handleButtonClick);
         app.displayOtps();
-    },
-    handleButtonClick: function () {
+
+        BarcodeScanner = cordova.plugins.barcodeScanner;
 
         let permissions = cordova.plugins.permissions;
-        permissions.checkPermission(permissions.CAMERA, function (status) {
-            if (status.hasPermission) {
-                app.scanQRCode();
-            } else {
-                app.requestCameraPermission();
-            }
-        });
-    },
-    requestCameraPermission: function () {
-
-        let permissions = cordova.plugins.permissions;
+        // Verifier permissions
         permissions.requestPermission(permissions.CAMERA, function (status) {
             if (status.hasPermission) {
                 console.log("Permission granted");
-                app.scanQRCode();
             } else {
-                console.error("Permission denied");
-                alert("Camera access is required to scan a QR code. Please enable it in your app settings.");
+                console.log("Permission denied");
             }
         });
     },
-    scanQRCode: function () {
-        // GUESS WHO HAD TO SWITCH LIBRARIES LIKE 5 TIMES
-        QRScanner.prepare(function (err, status) {
-            if (err) {
-                console.error("QRScanner prepare error: ", err);
-                alert("Failed to prepare scanner: " + err.message);
-                return;
-            }
+    handleButtonClick: function () {
+        app.scanQRCode();
 
-            if (status.authorized) {
-                // Start scanning
-                QRScanner.scan(function (err, text) {
-                    if (err) {
-                        app.handleScanError(err);
-                    } else {
-                        app.handleScanSuccess({ text: text, cancelled: false });
-                    }
-                });
-
-                // Make the scanner visible
-                QRScanner.show();
-            } else if (status.denied) {
-                alert("Camera access was denied permanently. Please enable it in the device settings.");
-            } else {
-                alert("Camera access was denied temporarily.");
-            }
-        });
     },
-    handleScanSuccess: function (result) {
 
-        if (!result.cancelled) {
-            console.log("QR Code scanned:", result.text);
-            let data = app.decodeOtpString(result.text.trim());
-
-            console.log(data);
-
-            if (data === false) {
-                alert("Invalid QR Code, please check you're scanning a correct one, and if it is, report it to TOMASS.TRBS@eduge.ch as this might be a bug.");
-                return;
-            }
-
-            app.saveOtpToMemory(data);
-
-            console.log(localStorage.getItem('opts'));
-
-            // Re-displays all OTPs
-            app.displayOtps();
-
-            // Hide the scanner after success
-            QRScanner.hide();
-        } else {
-            console.log("User cancelled the scan.");
-            QRScanner.hide(); // Hide the scanner even if cancelled
+    scanQRCode: async function () {
+        try {
+            BarcodeScanner.scan(app.handleScanSuccess, app.handleScanError);
+        } catch (error) {
+            app.handleScanError(error);
         }
     },
+
+    handleScanSuccess: function (result) {
+        console.log("QR Code scanned:", result.text);
+        let data = app.decodeOtpString(result.text.trim());
+
+        if (data === false) {
+            alert("Invalid QR Code, please check you're scanning a correct one...");
+            return;
+        }
+
+        app.saveOtpToMemory(data);
+        console.log(localStorage.getItem('opts'));
+        app.displayOtps();
+    },
+
     handleScanError: function (error) {
         console.error("Error scanning QR Code:", error);
     },
@@ -177,9 +138,9 @@ let app = {
 
 
             setTimeout(() => {
-                span.innerHTML = app.getTotp(secret);
+                span.innerHTML = app.getTotp(otp.secret);
                 setInterval(() => {
-                    span.innerHTML = app.getTotp(secret);
+                    span.innerHTML = app.getTotp(otp.secret);
                 }, otp.period * 1000);
             }, nextInterval * 1000);
 
@@ -223,7 +184,7 @@ let app = {
             default:
                 alert('Unsupported hashing algorithm, please send an email to TOMASS.TRBS@eduge.ch to add support for it.');
                 return "";
-            }
+        }
 
         const hmacBytes = Uint8Array.from(CryptoJS.enc.Hex.parse(hmacHash.toString(CryptoJS.enc.Hex)).words.flatMap(word => [
             (word >>> 24) & 0xFF,

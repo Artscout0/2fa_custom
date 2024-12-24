@@ -1,5 +1,5 @@
 {
-  "name": "org.apache.cordova.twofa_app",
+  "name": "ch.ictge.tribis_2fa",
   "displayName": "twofa_app",
   "version": "1.0.0",
   "description": "Apache Cordova app that acts like an authenticator app.",
@@ -13,21 +13,18 @@
   "author": "Tomass Tribis",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@starley/barcodescanner-sdk31": "github:StarleyDev/barcodescanner-sdk31",
     "cordova-android": "^13.0.0",
-    "cordova-plugin-android-permissions": "^1.1.5",
-    "cordova-plugin-camera": "^8.0.0",
-    "cordova-plugin-qrscanner": "^3.0.1"
+    "cordova-plugin-android-permissions": "^1.1.5"
   },
   "cordova": {
     "platforms": [
       "android"
     ],
     "plugins": {
-      "cordova-plugin-camera": {
-        "ANDROIDX_CORE_VERSION": "1.6.+"
-      },
       "cordova-plugin-android-permissions": {},
-      "cordova-plugin-qrscanner": {}
+      "@starley/barcodescanner-sdk31": {},
+      "phonegap-plugin-barcodescanner": {}
     }
   }
 }

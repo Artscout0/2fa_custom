@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.example.griffis.perm" version="1.0.5" xmlns="http://www.w3.org/ns/widgets"
+<widget id="ch.ictge.tribis_2fa" version="1.0.0" xmlns="http://www.w3.org/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cdv="http://cordova.apache.org/ns/1.0">
-
     <name>twofa_app</name>
     <description>Apache Cordova app that acts like an authenticator app</description>
     <author email="tomass.trbs@eduge.ch" href="classroom.google.com">
@@ -18,14 +17,22 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
-        <preference name="LoadingDialog" value="Bitch, Wait for it" />
+        <preference name="LoadingDialog" value="Wait for it..." />
         <preference name="HideKeyboardFormAccessoryBar" value="true" />
         <preference name="Fullscreen" value="true" />
+        <preference name="android-minSdkVersion" value="21" />
+        <preference name="android-targetSdkVersion" value="34" />
         <config-file after="uses-permission" parent="/manifest" target="AndroidManifest.xml">
-            <!-- No need to add permissions again here -->
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+            <uses-permission android:name="android.permission.BLUETOOTH" />
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+            <uses-permission android:name="android.permission.READ_CONTACTS" />
+            <uses-permission android:name="android.permission.WRITE_CONTACTS" />
         </config-file>
     </platform>
+    <!-- with how this is going, I'm quitting programming and opening a bakery. -->
 
-    <plugin name="cordova-plugin-camera" spec="^8.0.0" />
-    <plugin name="cordova-plugin-qrscanner" spec="^3.0.1" />
 </widget>
