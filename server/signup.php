@@ -28,10 +28,9 @@ if (isset($email, $password)) {
 
         $showForm = false;
 
-        $user->InsertNewUser([":email" => $email, ":password_hash" => password_hash($password, PASSWORD_DEFAULT), ":user_secret" => $secret]);
-
         if ($totp->validateToken($secret, $auth_code)) {
-            header("Location: index.php");
+            $user->InsertNewUser([":email" => $email, ":password_hash" => password_hash($password, PASSWORD_DEFAULT), ":user_secret" => $secret]);
+            header("Location: ./index.php");
         } else {
             $errors[] = "2fa code expired or incorrect.";
         }
@@ -58,9 +57,8 @@ if (isset($email, $password)) {
         $qrCode = new QrCode($qrCodeData, new Encoding('UTF-8'), ErrorCorrectionLevel::Low, 500, 10);
 
         $res = $writer->write($qrCode);
-        
-        $imgdata = base64_encode($res->getString());
 
+        $imgdata = base64_encode($res->getString());
     }
 }
 ?>
@@ -115,9 +113,9 @@ if (isset($email, $password)) {
             <p>Alternatively, write down the following characters: <i><?= $secret ?></i> , and write them into you preferred authenticator app.</p>
 
             <form method="post">
-                <input type="hidden" name="email" id="email" required value="<?=$email?>">
-                <input type="hidden" name="password" id="password" required value="<?=$password?>">
-                <input type="hidden" name="secret" id="secret" required value="<?=$secret?>">
+                <input type="hidden" name="email" id="email" required value="<?= $email ?>">
+                <input type="hidden" name="password" id="password" required value="<?= $password ?>">
+                <input type="hidden" name="secret" id="secret" required value="<?= $secret ?>">
 
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="password">Afterwards, input the code into here:</label>
